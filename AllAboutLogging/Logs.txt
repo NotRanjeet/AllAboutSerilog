@@ -1,0 +1,11 @@
+2019-03-14 13:36:04.899 +11:00 [INF] Starting web host
+2019-03-14 13:36:35.871 +11:00 [INF] User request to fetch the Favorite car
+2019-03-14 13:36:35.877 +11:00 [INF] Returning car with RegistrationNo R1234 and CarInfo AllAboutLogging.Models.Car
+2019-03-14 13:36:35.891 +11:00 [INF] Returning car with R1234 and {"Registration":"R1234","Make":"Audi","EngineNo":"Eng987","Model":"TT","$type":"Car"}
+2019-03-14 13:44:31.675 +11:00 [INF] Starting web host
+2019-03-14 13:44:37.517 +11:00 [INF] User request to fetch the Favorite car
+2019-03-14 13:44:37.530 +11:00 [INF] Returning car with RegistrationNo R1234 and CarInfo AllAboutLogging.Models.Car
+2019-03-14 13:44:37.549 +11:00 [INF] Returning car with RegistrationNo:R1234 and {"Registration":"R1234","Make":"Audi","EngineNo":"Eng987","Model":"TT","$type":"Car"}
+2019-03-14 13:44:38.783 +11:00 [INF] User request to fetch the Favorite car
+2019-03-14 13:44:38.784 +11:00 [INF] Returning car with RegistrationNo R1234 and CarInfo AllAboutLogging.Models.Car
+2019-03-14 13:44:38.784 +11:00 [INF] Returning car with RegistrationNo:R1234 and {"Registration":"R1234","Make":"Audi","EngineNo":"Eng987","Model":"TT","$type":"Car"}
