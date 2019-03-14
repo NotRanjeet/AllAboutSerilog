@@ -50,5 +50,21 @@ namespace AllAboutLogging
                 
             return loggerConfiguration.CreateLogger();
         }
+
+
+        //Configure simple file and console logger but also enable rolling files 
+        public static ILogger ConfigureFileLoggerWithRollingFilesUsingCode()
+        {
+            var loggerConfiguration = new LoggerConfiguration()
+                .WriteTo.Console() //More on LogContext later
+                //fileSizeLimitBytes: We instruct that Limit each log file to 10 MB
+                //rollOnFileSizeLimit: We instruct to create new file when the size is exceeded 10MB
+                //retainedFileCountLimit: We instruct to keep maximum of 20 logs files
+                .WriteTo.File("Logs.txt", LogEventLevel.Debug, fileSizeLimitBytes: 10485760, rollOnFileSizeLimit: true, retainedFileCountLimit: 20)
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)//Override for framework libraries
+                .MinimumLevel.Override("System", LogEventLevel.Warning);// Override to avoid logging system INF events
+                
+            return loggerConfiguration.CreateLogger();
+        }
     }
 }
