@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AllAboutLogging.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Serilog;
@@ -66,5 +67,23 @@ namespace AllAboutLogging
                 
             return loggerConfiguration.CreateLogger();
         }
+
+        //Configure simple file and console logger but also enable rolling files 
+        public static ILogger ConfigureLoggerWithDestructure()
+        {
+            var loggerConfiguration = new LoggerConfiguration()
+                .WriteTo.Console() //More on LogContext later
+                //fileSizeLimitBytes: We instruct that Limit each log file to 10 MB
+                //rollOnFileSizeLimit: We instruct to create new file when the size is exceeded 10MB
+                //retainedFileCountLimit: We instruct to keep maximum of 20 logs files
+                .WriteTo.File("Logs.txt", LogEventLevel.Debug, fileSizeLimitBytes: 10485760, rollOnFileSizeLimit: true, retainedFileCountLimit: 20)
+                .Destructure.ByTransforming<LoginModel>(login => new {login.Email, login.RememberMe})// We tell serilog to skip Password while serializing
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)//Override for framework libraries
+                .MinimumLevel.Override("System", LogEventLevel.Warning);// Override to avoid logging system INF events
+                
+            return loggerConfiguration.CreateLogger();
+        }
+
+
     }
 }

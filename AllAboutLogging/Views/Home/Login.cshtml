@@ -1,0 +1,15 @@
+﻿@model LoginModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Login</h2>
+<form asp-controller="Home" asp-action="Login" method="post">
+    <!-- Input and Submit elements -->
+    Email:  <input asp-for="Email" /> <br />
+    Password: <input asp-for="Password" /><br />
+    RememberMe: <input type="checkbox" asp-for="RememberMe" /><br />
+    <button type="submit">Register</button>
+</form>
