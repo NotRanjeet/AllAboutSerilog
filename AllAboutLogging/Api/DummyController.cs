@@ -64,7 +64,7 @@ namespace AllAboutLogging.Api
             using (LogContext.PushProperty("ApiRequestId", Guid.NewGuid()))
             {
                 _logger.LogInformation("Inside Controller: User request to fetch the Favorite car");
-                var cars = _dummyService.GetLatestCars(10);
+                var cars = _dummyService.GetLatestCars(5);
                 return Ok(cars);
             }
         }

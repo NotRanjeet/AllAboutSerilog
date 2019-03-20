@@ -23,7 +23,7 @@ namespace AllAboutLogging.Application.Services
         /// <returns></returns>
         public List<CarDto> GetLatestCars(short count =10)
         {
-            _logger.LogInformation("Inside Service: User request to Fetch {Count} latest cars", count);
+            _logger.LogInformation("Inside Service: User request to fetch the Favorite car");
             var range = Enumerable.Range(1,count);
             var cars = new List<CarDto>();
             foreach (var item in range)
