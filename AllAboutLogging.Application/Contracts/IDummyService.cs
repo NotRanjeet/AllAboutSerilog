@@ -7,6 +7,6 @@ namespace AllAboutLogging.Application.Contracts
 {
     public interface IDummyService
     {
-        List<CarDto> GetLatestCars();
+        List<CarDto> GetLatestCars(short count);
     }
 }

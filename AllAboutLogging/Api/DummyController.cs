@@ -60,7 +60,8 @@ namespace AllAboutLogging.Api
         [Route("latest")]
         public ActionResult GetLatestCar()
         {
-            using (LogContext.PushProperty("RequestId", Activity.Current.Id))
+            //it can be anything i am using some random value as context variable
+            using (LogContext.PushProperty("ApiRequestId", Guid.NewGuid()))
             {
                 _logger.LogInformation("Inside Controller: User request to fetch the Favorite car");
                 var cars = _dummyService.GetLatestCars(10);
