@@ -12,18 +12,20 @@ namespace AllAboutLogging
 {
     public static class LoggerConfigurations
     {
-        //Method that will configure logger using appsettings.json file
-        public static ILogger ConfigureLoggerFromConfiguration(IConfiguration configuration)
+        //Method that will configure logger using appsettings.json file and combination of Code
+        //This is an example that shows mix and match of both configuration approaches.
+        public static ILogger ConfigureLoggerForApplicationInsights(IConfiguration configuration)
         {
             var loggerConfiguration = new LoggerConfiguration()
+                .ReadFrom.Configuration(configuration)
                 .Enrich.FromLogContext()//More on LogContext later
                 .WriteTo.Console();//Write log data to console sink
 
             //Get the application insights key from the configuration
             var aiKey = configuration["ApplicationInsights:InstrumentationKey"];
             
-            //If we have ai key and it is not development
-            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != EnvironmentName.Development && 
+            //If we have ai key and it is not staging in Ideal scenario it can be Development
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != EnvironmentName.Staging && 
                 !string.IsNullOrEmpty(aiKey)) //If it is not Development environment 
             {
                 //change the configuration to log info to the application insights user custom converter

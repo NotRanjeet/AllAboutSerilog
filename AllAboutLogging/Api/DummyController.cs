@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using AllAboutLogging.Application.Contracts;
+using AllAboutLogging.Application.DTOs;
 using AllAboutLogging.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Serilog.Context;
 using ILogger = Serilog.ILogger;
 
 
@@ -15,10 +19,12 @@ namespace AllAboutLogging.Api
     [ApiController]
     public class DummyController : ControllerBase
     {
-        private ILogger<DummyController> _logger;
-        public DummyController(ILogger<DummyController> logger)
+        private readonly ILogger<DummyController> _logger;
+        private IDummyService _dummyService;
+        public DummyController(IDummyService dummyService, ILogger<DummyController> logger)
         {
             _logger = logger;
+            _dummyService = dummyService;
         }
 
         //Dummy action to return a list of dummy cars.
@@ -37,7 +43,7 @@ namespace AllAboutLogging.Api
         public ActionResult GetFavoriteCar()
         {
             _logger.LogInformation("User request to fetch the Favorite car");
-            var car = new Car()
+            var car = new CarDto()
             {
                 EngineNo = "Eng987",
                 Model = "TT",
@@ -49,14 +55,26 @@ namespace AllAboutLogging.Api
             return Ok(car);
         }
 
+
+        [HttpGet]
+        [Route("latest")]
+        public ActionResult GetLatestCar()
+        {
+            using (LogContext.PushProperty("RequestId", Activity.Current.Id))
+            {
+                _logger.LogInformation("Inside Controller: User request to fetch the Favorite car");
+                var cars = _dummyService.GetLatestCars(10);
+                return Ok(cars);
+            }
+        }
         
 
-        private IEnumerable<Car> GetCarsList(short count =10)
+        private IEnumerable<CarDto> GetCarsList(short count =10)
         {
             var range = Enumerable.Range(1,count);
             foreach (var item in range)
             {
-                yield return new Car
+                yield return new CarDto
                 {
                     EngineNo = $"ENG1234{item}",
                     Make = $"Toyota{item}",

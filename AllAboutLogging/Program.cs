@@ -26,7 +26,7 @@ namespace AllAboutLogging
             .Build();
         public static void Main(string[] args)
         {
-            Log.Logger = LoggerConfigurations.ConfigureFileLoggerUsingCode();
+            Log.Logger = LoggerConfigurations.ConfigureLoggerForApplicationInsights(Configuration);
             try
             {
                 Log.Information("Starting web host");

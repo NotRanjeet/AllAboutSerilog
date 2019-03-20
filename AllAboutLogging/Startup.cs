@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AllAboutLogging.Application.Contracts;
+using AllAboutLogging.Application.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -33,6 +35,8 @@ namespace AllAboutLogging
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            //Register our Dummy service to call
+            services.AddTransient<IDummyService, DummyService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
