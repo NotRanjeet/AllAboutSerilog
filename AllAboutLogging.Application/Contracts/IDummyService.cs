@@ -8,5 +8,7 @@ namespace AllAboutLogging.Application.Contracts
     public interface IDummyService
     {
         List<CarDto> GetLatestCars(short count =10);
+
+        void DummyMethod();
     }
 }
